@@ -35,9 +35,16 @@ const Hero = () => {
               size="lg" 
               variant="outline"
               className="gap-2 glass-effect hover:bg-white/10"
+              asChild
             >
-              <Download className="h-5 w-5" />
-              Download Resume
+              <a 
+                href="https://drive.google.com/file/d/1-Iuoh_BVD4hqMBFTOZ-AE8lcOYCUs-Ij/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Download className="h-5 w-5" />
+                Download Resume
+              </a>
             </Button>
           </div>
           
