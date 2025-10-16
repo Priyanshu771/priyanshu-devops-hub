@@ -12,11 +12,48 @@ const Contact = () => {
     email: "",
     message: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // This is the email address that will receive the contact form submissions
+  const RECIPIENT_EMAIL = "prayanshu771@gmail.com";
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent! I'll get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
+    
+    if (!formData.name || !formData.email || !formData.message) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+    
+    setIsSubmitting(true);
+    
+    try {
+      // Create a mailto link with the form data
+      const subject = `Portfolio Contact: ${formData.name}`;
+      const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
+      
+      // Option 1: Open the user's email client with the form data
+      window.open(`mailto:${RECIPIENT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
+      
+      // Option 2: For a more integrated approach, you would use a service like:
+      // - FormSubmit.co (free, no signup required)
+      // - Formspree.io
+      // - A custom backend API endpoint
+      
+      // Log the form data to console (for debugging)
+      console.log("Form submitted:", formData);
+      
+      // Show success message
+      toast.success("Email client opened! Please send the email to complete your message.");
+      
+      // Reset form
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Failed to send message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -153,10 +190,20 @@ const Contact = () => {
               <Button 
                 type="submit"
                 size="lg"
+                disabled={isSubmitting}
                 className="w-full gap-2 bg-primary hover:bg-primary/90 text-primary-foreground shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_30px_rgba(59,130,246,0.7)] transition-all"
               >
-                <Send className="h-5 w-5" />
-                Send Message
+                {isSubmitting ? (
+                  <>
+                    <div className="h-5 w-5 animate-spin rounded-full border-2 border-t-transparent" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="h-5 w-5" />
+                    Send Message
+                  </>
+                )}
               </Button>
             </form>
           </Card>

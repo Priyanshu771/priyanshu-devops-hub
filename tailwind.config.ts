@@ -5,11 +5,34 @@ export default {
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
+    screens: {
+      'xs': '360px',
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+      '3xl': '1920px', // TV size
+      '4xl': '2560px', // Large TV
+      'watch': {'max': '280px'}, // Watch size
+    },
     container: {
       center: true,
-      padding: "2rem",
+      padding: {
+        'DEFAULT': '1rem',
+        'sm': '2rem',
+        'lg': '4rem',
+        '2xl': '6rem',
+        '4xl': '8rem',
+      },
       screens: {
-        "2xl": "1400px",
+        "sm": "640px",
+        "md": "768px",
+        "lg": "1024px",
+        "xl": "1280px",
+        "2xl": "1536px",
+        "3xl": "1920px",
+        "4xl": "2560px",
       },
     },
     extend: {
@@ -107,6 +130,18 @@ export default {
           "50%": {
             boxShadow: "0 0 40px rgba(59, 130, 246, 0.6)"
           }
+        },
+        "float": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" }
+        },
+        "float-slow": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-15px)" }
+        },
+        "float-medium": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-8px)" }
         }
       },
       animation: {
@@ -115,6 +150,9 @@ export default {
         "fade-in": "fade-in 0.6s ease-out",
         "slide-in": "slide-in 0.5s ease-out",
         "glow": "glow 2s ease-in-out infinite",
+        "float": "float 3s ease-in-out infinite",
+        "float-slow": "float-slow 6s ease-in-out infinite",
+        "float-medium": "float-medium 4s ease-in-out infinite"
       },
     },
   },
